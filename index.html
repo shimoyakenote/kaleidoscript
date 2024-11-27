@@ -142,7 +142,7 @@
 		function act(){
 			setInterval(function(){
 				t += 1;
-				if(t % (75 * FPS) == 0) {
+				if(t % (50 * FPS) == 0) {
 					MVO.mutate();
 					angle = Math.ceil(Math.random() * 7)+1;
 					pm = pm * -1;
