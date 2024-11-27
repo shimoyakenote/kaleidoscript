@@ -147,7 +147,7 @@
 					angle = Math.ceil(Math.random() * 7)+1;
 					pm = pm * -1;
 					resolution = Math.ceil(Math.random() * 48)*pm;
-					tdis = Math.ceil(Math.random() * 800)+1;					
+					tdis = Math.ceil(Math.random() * Math.min(HEIGHT,WIDTH))+1;					
 				}
 				if(t % (0.5 * FPS) == 0) {
 					tdir +=  Math.PI * 1 / resolution;
