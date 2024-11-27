@@ -1,0 +1,169 @@
+<html><head>
+	<title>KaleidoScript</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head><body>
+<canvas id="backscr"></canvas>
+<div id="scr">
+</div>
+
+<style>
+	html{
+		background-color:black;
+	}
+	#scr{
+		position:fixed;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		z-index:99999;
+		opacity:0;
+	}
+	#backscr{
+		position:fixed;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		z-index:99998;
+		opacity:1;
+	}	
+	span.mvo{
+		display:inline-block;
+		position:absolute;
+		text-align: center;
+	}
+</style>
+<!-- olf -->
+<script>
+	jQuery(function(){
+		const FPS = 3;
+		const CSR_SP = 2;
+		const LINEAR_LENGTH = 1000;
+		
+		let $scr = $("#scr");
+		let $bscr = $("#backscr");
+		let t = 0;
+
+		const WIDTH = $scr.width();
+		const HEIGHT = $scr.height();
+
+		const INX = WIDTH*0.5;
+		const INY = HEIGHT*0.5;
+
+		$bscr.prop("width",WIDTH);
+		$bscr.prop("height",HEIGHT);
+		
+		let ctx = document.getElementById("backscr").getContext("2d");
+		ctx.lineWidth=1;
+		ctx.strokeStyle = "red";
+		ctx.beginPath();
+
+		act();		
+		
+		function dist(ax,ay,bx,by){return Math.sqrt(Math.pow(ax-bx,2) + Math.pow(ay-by,2));}
+		
+		class MVO{
+			limit;
+			x;
+			y;
+			speed=0;
+			age=0;
+			direction=0;
+			static insts = [];
+		
+			s_fluc;
+			static s_fluc = 0;
+			d_fluc;
+			static d_fluc = 0;
+			static saturation = 100;
+			static lightness = 50;
+		
+			c_offset = 0;
+		
+			constructor(limit,x,y,r,g,b,cof=0){
+				this.obj = $("<span class=\"mvo\"></span>");
+				this.limit = limit;
+				this.s_fluc = MVO.s_fluc;
+				this.d_fluc = MVO.d_fluc;
+				this.c_offset = cof;
+				this.set(x,y);
+				MVO.insts.push(this);
+			}
+			set(x,y){
+				this.x = x;
+				this.y = y;
+			}
+			move(x,y){
+				this.set(this.x + x,this.y + y);
+			}
+			lanch_to(x,y,s){
+				this.speed = s;
+				this.direction = Math.atan2(y-this.y,x-this.x);
+			}
+			glide(){
+				ctx.beginPath();
+				ctx.strokeStyle = "hsl("+(t*10 + this.c_offset) % 360 +","+MVO.saturation+"%,"+MVO.lightness+"%"+")";
+
+				ctx.moveTo(this.x,this.y);
+				this.move(Math.cos(this.direction)*this.speed*50/FPS,Math.sin(this.direction)*this.speed*50/FPS);
+				this.age += 1;
+				if(this.s_fluc == MVO.s_fluc && this.d_fluc == MVO.d_fluc )ctx.lineTo(this.x,this.y);
+
+				ctx.stroke();
+
+				if(this.age == this.limit*FPS)this.remove();
+				this.speed += this.s_fluc * 50 / FPS;
+				this.direction += this.d_fluc * 50 / FPS;
+
+			}
+			remove(){
+				MVO.insts = MVO.insts.filter(inst => inst !== this);
+			}
+			static mutate(){
+				MVO.s_fluc = Math.random()*0.1 - 0.05;
+				MVO.d_fluc = Math.random()*0.02 - 0.01;
+				MVO.saturation = Math.ceil(Math.random()*(25 + 1))+75;
+				MVO.lightness = Math.ceil(Math.random()*(30 + 1))+40;
+			}
+		}
+
+		let tb;
+		let gl;
+
+		let tdis = Math.ceil(Math.random() * Math.round(Math.max(WIDTH,HEIGHT)*1))+1;
+		let tdir = 0;
+		let angle = Math.ceil(Math.random() * 10)+2;
+		let resolution = Math.ceil(Math.random() * 48);
+		let i = 0;
+		let pm = 1;
+
+		function act(){
+			setInterval(function(){
+				t += 1;
+				if(t % (100 * FPS) == 0) {
+					MVO.mutate();
+					angle = Math.ceil(Math.random() * 7)+1;
+					pm = pm * -1;
+					resolution = Math.ceil(Math.random() * 48)*pm;
+					tdis = Math.ceil(Math.random() * 800)+1;					
+				}
+				if(t % (0.5 * FPS) == 0) {
+					tdir +=  Math.PI * 1 / resolution;
+					for(i = 0;i < angle; i++){
+						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,360 * i / angle);
+						tb.lanch_to(INX,INY,4);
+					}
+				}
+
+				console.log(MVO.insts.length);
+				MVO.insts.forEach(function(inst){
+					inst.glide();
+				});
+				
+			},1000/FPS/30);
+		}
+	});
+</script>
+
+</body></html>
