@@ -55,8 +55,7 @@
 		$bscr.prop("height",HEIGHT);
 		
 		let ctx = document.getElementById("backscr").getContext("2d");
-		ctx.lineWidth=1;
-		if(WIDTH < 740) ctx.lineWidth=2;
+		ctx.lineWidth= Math.floor(2000 / (WIDTH+HEIGHT));
 		ctx.strokeStyle = "red";
 		ctx.beginPath();
 
