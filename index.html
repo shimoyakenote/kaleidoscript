@@ -56,6 +56,7 @@
 		
 		let ctx = document.getElementById("backscr").getContext("2d");
 		ctx.lineWidth=1;
+		if(WIDTH < 740) ctx.lineWidth=2;
 		ctx.strokeStyle = "red";
 		ctx.beginPath();
 
