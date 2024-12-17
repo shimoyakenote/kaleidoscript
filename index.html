@@ -139,7 +139,9 @@
 		let resolution = Math.ceil(Math.random() * 48);
 		let i = 0;
 		let pm = 1;
-
+		let color_div = Math.ceil(Math.random()*9)+1;
+		let color_sect = Math.ceil(Math.random()*color_div);
+		MVO.mutate();
 		function act(){
 			setInterval(function(){
 				t += 1;
@@ -148,12 +150,14 @@
 					angle = Math.ceil(Math.random() * 7)+1;
 					pm = pm * -1;
 					resolution = Math.ceil(Math.random() * 48)*pm;
-					tdis = Math.ceil(Math.random() * (Math.min(HEIGHT,WIDTH)/2))+1;					
+					tdis = Math.ceil(Math.random() * (Math.min(HEIGHT,WIDTH)/2))+1;
+					color_div = Math.ceil(Math.random()*9)+1;
+					color_sect = Math.ceil(Math.random()*color_div);
 				}
 				if(t % (0.5 * FPS) == 0) {
 					tdir +=  Math.PI * 1 / resolution;
 					for(i = 0;i < angle; i++){
-						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,360 * i / angle);
+						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,(360 * i / angle) / color_div + (360 * color_sect / color_div));
 						tb.lanch_to(INX,INY,4);
 					}
 				}
