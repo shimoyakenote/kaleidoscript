@@ -144,6 +144,7 @@
 		let color_div = Math.ceil(Math.random()*COLOR_DIV_MAX)+1;
 		let color_sect = Math.ceil(Math.random()*color_div);
 		MVO.mutate();
+		alert(WIDTH + ":" + HEIGHT );
 		function act(){
 			setInterval(function(){
 				t += 1;
@@ -164,7 +165,6 @@
 					}
 				}
 
-				console.log(MVO.insts.length);
 				MVO.insts.forEach(function(inst){
 					inst.glide();
 				});
