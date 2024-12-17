@@ -51,6 +51,9 @@
 
 		const INX = WIDTH*0.5;
 		const INY = HEIGHT*0.5;
+		
+		const S_FLUC_RANGE = 0.1;
+		const D_FLUC_RANGE = 0.02:
 
 		$bscr.prop("width",WIDTH);
 		$bscr.prop("height",HEIGHT);
@@ -124,8 +127,8 @@
 				MVO.insts = MVO.insts.filter(inst => inst !== this);
 			}
 			static mutate(){
-				MVO.s_fluc = Math.random()*0.1 - 0.05;
-				MVO.d_fluc = Math.random()*0.02 - 0.01;
+				MVO.s_fluc = Math.random()*S_FLUC_RANGE - 0.5*S_FLUC_RANGE;
+				MVO.d_fluc = Math.random()*D_FLUC_RANGE - 0.5*D_FLUC_RANGE;
 				MVO.saturation = Math.floor(Math.random()*(25 + 1) +75);
 				MVO.lightness = Math.floor(Math.random()*(30 + 1) +40);
 			}
