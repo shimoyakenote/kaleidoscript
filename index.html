@@ -61,6 +61,8 @@
 		ctx.strokeStyle = "red";
 		ctx.beginPath();
 
+		const COLOR_DIV_MAX = 9;
+
 		act();		
 		
 		function dist(ax,ay,bx,by){return Math.sqrt(Math.pow(ax-bx,2) + Math.pow(ay-by,2));}
@@ -105,7 +107,7 @@
 			}
 			glide(){
 				ctx.beginPath();
-				ctx.strokeStyle = "hsl("+((t*10 + this.c_offset) % 360)/ color_div + (360 * color_sect / color_div) +","+MVO.saturation+"%,"+MVO.lightness+"%"+")";
+				ctx.strokeStyle = "hsl("+(((t*10 + this.c_offset) % 360)/color_div+(360 * color_sect / color_div)) +","+MVO.saturation+"%,"+MVO.lightness+"%"+")";
 
 				ctx.moveTo(this.x,this.y);
 				this.move(Math.cos(this.direction)*this.speed*50/FPS,Math.sin(this.direction)*this.speed*50/FPS);
@@ -139,7 +141,7 @@
 		let resolution = Math.ceil(Math.random() * 48);
 		let i = 0;
 		let pm = 1;
-		let color_div = Math.ceil(Math.random()*9)+1;
+		let color_div = Math.ceil(Math.random()*COLOR_DIV_MAX)+1;
 		let color_sect = Math.ceil(Math.random()*color_div);
 		MVO.mutate();
 		function act(){
@@ -151,7 +153,7 @@
 					pm = pm * -1;
 					resolution = Math.ceil(Math.random() * 48)*pm;
 					tdis = Math.ceil(Math.random() * (Math.min(HEIGHT,WIDTH)/2))+1;
-					color_div = Math.ceil(Math.random()*9)+1;
+					color_div = Math.ceil(Math.random()*COLOR_DIV_MAX)+1;
 					color_sect = Math.ceil(Math.random()*color_div);
 				}
 				if(t % (0.5 * FPS) == 0) {
