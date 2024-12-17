@@ -143,7 +143,6 @@
 		let color_div = Math.ceil(Math.random()*COLOR_DIV_MAX)+1;
 		let color_sect = Math.ceil(Math.random()*color_div);
 		MVO.mutate();
-		alert(WIDTH + ":" + HEIGHT );
 		function act(){
 			setInterval(function(){
 				t += 1;
@@ -155,6 +154,7 @@
 					tdis = Math.ceil(Math.random() * (Math.min(HEIGHT,WIDTH)/2))+1;
 					color_div = Math.ceil(Math.random()*COLOR_DIV_MAX)+1;
 					color_sect = Math.ceil(Math.random()*color_div);
+					console.log("div:"+color_div+"  sec:"+color_sect);
 				}
 				if(t % (0.5 * FPS) == 0) {
 					tdir +=  Math.PI * 1 / resolution;
