@@ -105,7 +105,7 @@
 			}
 			glide(){
 				ctx.beginPath();
-				ctx.strokeStyle = "hsl("+(t*10 + this.c_offset) % 360 +","+MVO.saturation+"%,"+MVO.lightness+"%"+")";
+				ctx.strokeStyle = "hsl("+((t*10 + this.c_offset) % 360)/ color_div + (360 * color_sect / color_div) +","+MVO.saturation+"%,"+MVO.lightness+"%"+")";
 
 				ctx.moveTo(this.x,this.y);
 				this.move(Math.cos(this.direction)*this.speed*50/FPS,Math.sin(this.direction)*this.speed*50/FPS);
@@ -157,7 +157,7 @@
 				if(t % (0.5 * FPS) == 0) {
 					tdir +=  Math.PI * 1 / resolution;
 					for(i = 0;i < angle; i++){
-						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,(360 * i / angle) / color_div + (360 * color_sect / color_div));
+						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,360 * i / angle);
 						tb.lanch_to(INX,INY,4);
 					}
 				}
