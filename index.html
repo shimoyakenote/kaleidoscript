@@ -63,7 +63,7 @@
 		ctx.strokeStyle = "red";
 		ctx.beginPath();
 
-		const COLOR_DIV_MAX = 4;
+		const COLOR_DIV_MAX = 6;
 
 		act();		
 		
@@ -139,8 +139,12 @@
 
 		let tdis = Math.floor(Math.random() * Math.round(Math.max(WIDTH,HEIGHT)*1) +1);
 		let tdir = 0;
-		let angle = Math.floor(Math.random() * 10 +2);
-		let resolution = Math.floor(Math.random() * 48 +1);
+		let angle;
+		let resolution;
+		do{
+			angle = Math.floor(Math.random() * 10 +2);
+			resolution = Math.floor(Math.random() * 48 + 1)*pm;
+		}while( (angle/resolution)%1 == 0 || (resolution/angle)%1 == 0 )
 		let i = 0;
 		let pm = 1;
 		let color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
@@ -152,9 +156,11 @@
 				t += 1;
 				if(t % (50 * FPS) == 0) {
 					MVO.mutate();
-					angle = Math.floor(Math.random() * 10 +2);
 					pm = pm * -1;
-					resolution = Math.floor(Math.random() * 48 + 1)*pm;
+					do{
+						angle = Math.floor(Math.random() * 10 +2);
+						resolution = Math.floor(Math.random() * 48 + 1)*pm;
+					}while( (angle/resolution)%1 == 0 || (resolution/angle)%1 == 0 )
 					tdis = Math.floor(Math.random() * (Math.max(HEIGHT,WIDTH)/2) +1);
 					color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
 					color_sect = Math.floor(Math.random()*color_div);
