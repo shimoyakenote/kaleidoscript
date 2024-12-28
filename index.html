@@ -38,6 +38,9 @@
 <!-- olf -->
 <script>
 	console.log("ver.1228.2210");
+	function gcd(a,b){
+		return b===0 ? a : gcd(b,a%b);
+	}
 	jQuery(function(){
 		const FPS = 3;
 		const CSR_SP = 2;
@@ -67,9 +70,6 @@
 		const COLOR_DIV_MAX = 6;
 
 		act();		
-		
-		function dist(ax,ay,bx,by){return Math.sqrt(Math.pow(ax-bx,2) + Math.pow(ay-by,2));}
-		
 		class MVO{
 			limit;
 			x;
@@ -147,7 +147,7 @@
 		do{
 			angle = Math.floor(Math.random() * 10 +2);
 			resolution = Math.floor(Math.random() * 48 + 1)*pm;
-		}while( (angle/resolution) % 1 == 0 || (resolution/angle) % 1 == 0 );
+		}while( gcd(angle,resolution) !== 1 )
 		let color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
 		let color_sect = Math.floor(Math.random()*color_div);
 					console.log("div:"+color_div+"  sec:"+color_sect);
@@ -161,7 +161,7 @@
 					do{
 						angle = Math.floor(Math.random() * 10 +2);
 						resolution = Math.floor(Math.random() * 48 + 1)*pm;
-					}while( (angle/resolution) % 1 == 0 || (resolution/angle) % 1 == 0 );
+					}while( gcd(angle,resolution) !== 1 )
 					tdis = Math.floor(Math.random() * (Math.max(HEIGHT,WIDTH)/2) +1);
 					color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
 					color_sect = Math.floor(Math.random()*color_div);
