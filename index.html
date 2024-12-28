@@ -37,7 +37,7 @@
 </style>
 <!-- olf -->
 <script>
-	console.log("ver.1228.2221");
+	console.log("ver.1228.2228");
 	function gcd(a,b){
 		return b===0 ? a : gcd(b,a%b);
 	}
@@ -159,8 +159,8 @@
 					MVO.mutate();
 					pm = pm * -1;
 					do{
-						angle = Math.floor(Math.random() * 10 +2);
-						resolution = Math.floor(Math.random() * 48 + 1)*pm;
+						angle = Math.floor(Math.random() * 10 + 2);
+						resolution = Math.floor(Math.random() * 93 + 4)*pm;
 					}while( gcd(angle,resolution) !== 1 )
 					tdis = Math.floor(Math.random() * (Math.max(HEIGHT,WIDTH)/2) +1);
 					color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
@@ -168,7 +168,7 @@
 					console.log("div:"+color_div+"  sec:"+color_sect);
 				}
 				if(t % (0.5 * FPS) == 0) {
-					tdir +=  Math.PI * 1 / resolution;
+					tdir +=  Math.PI * 2 / resolution;
 					for(i = 0;i < angle; i++){
 						tb = new MVO(10,INX+Math.sin(tdir + Math.PI * 2 * i / angle)*tdis,INY+Math.cos(tdir + Math.PI * 2 * i / angle)*tdis,0,0,255,(360 * i / angle)+Math.floor(Math.random()*360/color_div));
 						tb.lanch_to(INX,INY,4);
