@@ -37,7 +37,7 @@
 </style>
 <!-- olf -->
 <script>
-	console.log("ver.1228.2233");
+	console.log("ver.1229.0129");
 	function gcd(a,b){
 		return b===0 ? a : gcd(b,a%b);
 	}
@@ -146,7 +146,7 @@
 		let resolution;
 		do{
 			angle = Math.floor(Math.random() * 10 +2);
-			resolution = Math.floor(Math.random() * 82 + 4 + angle)*pm;
+			resolution = Math.floor(Math.random() * 62 + 24 + angle)*pm;
 		}while( gcd(angle,resolution) !== 1 )
 		let color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
 		let color_sect = Math.floor(Math.random()*color_div);
@@ -160,7 +160,7 @@
 					pm = pm * -1;
 					do{
 						angle = Math.floor(Math.random() * 10 + 2);
-						resolution = Math.floor(Math.random() * 82 + 4 + angle)*pm;
+						resolution = Math.floor(Math.random() * 62 + 24 + angle)*pm;
 					}while( gcd(angle,resolution) !== 1 )
 					tdis = Math.floor(Math.random() * (Math.max(HEIGHT,WIDTH)/2) +1);
 					color_div = Math.floor(Math.random()*COLOR_DIV_MAX +1);
